@@ -1,0 +1,49 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+}
+
+.container {
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 40px;
+  background: white;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+h1 {
+  color: #1f2937;
+  font-size: 42px;
+  line-height: 1.1;
+}
+
+p {
+  color: #4b5563;
+  font-size: 18px;
+}
+
+button {
+  margin: 10px;
+  padding: 12px 24px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+.candidate-card {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 500px;
+  background: #f9fafb;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
