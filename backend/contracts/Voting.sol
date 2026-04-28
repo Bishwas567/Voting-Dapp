@@ -5,6 +5,7 @@ contract Voting {
     address public admin;
     bool public votingStarted;
     bool public votingEnded;
+    uint public electionId;
 
     struct Candidate {
         uint id;
@@ -13,12 +14,13 @@ contract Voting {
     }
 
     mapping(uint => Candidate) public candidates;
-    mapping(address => bool) public hasVoted;
+    mapping(address => uint) public lastVotedElection;
 
     uint public candidatesCount;
 
     constructor() {
         admin = msg.sender;
+        electionId = 1;
     }
 
     modifier onlyAdmin() {
@@ -35,21 +37,24 @@ contract Voting {
 
     function startVoting() public onlyAdmin {
         require(candidatesCount >= 2, "Need at least two candidates");
+
         votingStarted = true;
+        votingEnded = false;
     }
 
     function endVoting() public onlyAdmin {
         require(votingStarted, "Voting has not started");
+
         votingEnded = true;
     }
 
     function vote(uint _candidateId) public {
         require(votingStarted, "Voting has not started");
         require(!votingEnded, "Voting has ended");
-        require(!hasVoted[msg.sender], "You already voted");
+        require(lastVotedElection[msg.sender] != electionId, "You already voted");
         require(_candidateId > 0 && _candidateId <= candidatesCount, "Invalid candidate");
 
-        hasVoted[msg.sender] = true;
+        lastVotedElection[msg.sender] = electionId;
         candidates[_candidateId].voteCount++;
     }
 
@@ -87,5 +92,6 @@ contract Voting {
         candidatesCount = 0;
         votingStarted = false;
         votingEnded = false;
+        electionId++;
     }
 }
